@@ -1,0 +1,16 @@
+if [ $# -eq 0 ]
+then
+	echo "Usage: phone searchfor [..searchfor]"
+	echo "(You didn't tell me what you want to search for.)"
+else
+	datafile="mydata.txt"
+	result=$(cat "$datafile")
+	
+	for term in "$@"; do
+		result=$(echo "$result" | grep -i  "$term")
+	done
+	
+	echo "$result" > tmp
+
+	awk -f display.awk tmp
+fi
